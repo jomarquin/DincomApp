@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_list_terms"
+            android:icon="@mipmap/ic_menu_terms"
+            android:title="@string/list_terms" />
+        <item
+            android:id="@+id/nav_list_tutorials"
+            android:icon="@mipmap/ic_menu_tutorial"
+            android:title="@string/tutorials" />
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@mipmap/ic_menu_search"
+            android:title="@string/search"/>
+        <item
+            android:id="@+id/nav_configurations"
+            android:icon="@mipmap/ic_menu_configuration"
+            android:title="@string/configurations" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@mipmap/ic_menu_about"
+            android:title="@string/about" />
+        <item
+            android:id="@+id/nav_menu"
+            android:icon="@mipmap/ic_menu"
+            android:title="@string/menu" />
+        <item
+            android:id="@+id/nav_closeSession"
+            android:icon="@mipmap/ic_menu_closesession"
+            android:title="@string/exit_app" />
+
+    </group>
+
+
+
+</menu>

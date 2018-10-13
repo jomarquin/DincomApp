@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".ComidasFragment">
+
+    <Button
+        android:id="@+id/id_register_plate"
+        android:layout_width="152dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Agregar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textoIngredientes_id" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/imagenComida_id"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginStart="10dp"
+        android:paddingRight="5dp"
+        android:src="@mipmap/ic_launcher_maxi"
+        app:layout_constraintEnd_toStartOf="@+id/id_name_plate"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/id_name_plate"
+        android:layout_width="198dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:ems="10"
+        android:hint="@string/nombre"
+        android:inputType="textCapWords"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/imagenComida_id" />
+
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/id_price_plate"
+        android:layout_width="198dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:ems="10"
+        android:hint="@string/precio_comida"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/imagenComida_id"
+        app:layout_constraintTop_toBottomOf="@id/id_name_plate" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/horarioComida_id"
+        android:layout_width="321dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginStart="30dp"
+        android:text="@string/horario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imagenComida_id" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="361dp"
+        android:layout_height="85dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/horarioComida_id">
+
+        <CheckBox
+            android:id="@+id/checkBoxManiana"
+            android:layout_width="114dp"
+            android:layout_height="wrap_content"
+            android:text="@string/maniana" />
+
+        <CheckBox
+            android:id="@+id/checkBoxTarde"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tarde"
+            app:layout_constraintLeft_toRightOf="@id/checkBoxManiana" />
+
+        <CheckBox
+            android:id="@+id/checkBoxNoche"
+            android:layout_width="104dp"
+            android:layout_height="wrap_content"
+            android:text="@string/noche"
+            app:layout_constraintLeft_toRightOf="@id/checkBoxTarde" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tipoComida_id"
+            android:layout_width="351dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginStart="5dp"
+            android:text="@string/tipo_comida"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkBoxManiana" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tipoComida_id">
+
+            <RadioButton
+                android:id="@+id/RB_Entrada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/entrada"
+                app:layout_constraintTop_toBottomOf="@id/tipoComida_id" />
+
+            <RadioButton
+                android:id="@+id/RB_PlatoFuerte"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/plato_fuerte"
+                app:layout_constraintLeft_toRightOf="@id/RB_Entrada"
+                app:layout_constraintTop_toBottomOf="@id/tipoComida_id" />
+        </RadioGroup>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/buttonTiempo_id"
+        android:layout_width="177dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/tiempo_preparacion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/timePreparacion_id"
+        android:layout_width="113dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/textoIngredientes_id"
+        android:layout_width="347dp"
+        android:layout_height="39dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:hint="@string/ingreComidas"
+        android:inputType="textMultiLine|textNoSuggestions"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonTiempo_id" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="125dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_register_plate"
+        app:layout_constraintVertical_bias="0.066">
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_eliminar"
+        android:layout_width="48dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_salir"
+        android:layout_width="48dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginRight="28dp"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toStartOf="@+id/fab_eliminar"
+        app:srcCompat="@android:drawable/ic_notification_clear_all" />
+
+</android.support.constraint.ConstraintLayout>

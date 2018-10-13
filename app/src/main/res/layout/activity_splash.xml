@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/side_nav_bar"
+    android:padding="16dp"
+    tools:context="com.martinez.johan.dincomapp.SplashActivity">
+
+
+
+    <ImageView
+
+        android:id="@+id/ImageSplash"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="85dp"
+        android:src="@mipmap/ic_launcher2" />
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/mensajeIntro_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Diccionario Digital Ingenieril"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:elevation="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+        />
+</RelativeLayout>
