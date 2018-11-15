@@ -71,9 +71,8 @@ public class DetailtermFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_detailterm, container, false);
 
-        /**txtId=view.findViewById(R.id.id_id_listTerms);
-        txtName=view.findViewById(R.id.id_name_listTerms);
-        //txtDefinition=view.findViewById(R.id.id_definition_listTerms);
+        txtName=view.findViewById(R.id.id_term);
+        txtDefinition=view.findViewById(R.id.id_definition);
         //txtLinkTutorial=view.findViewById(R.id.id_link_listTerms);
 
         Bundle objectTerm=getArguments();
@@ -83,10 +82,10 @@ public class DetailtermFragment extends Fragment {
 
             //txtId.setText(term.getId_term().toString());
             txtName.setText(term.getT_Name());
-            //txtDefinition.setText(term.getT_Definition());
+            txtDefinition.setText(term.getT_Definition());
             //txtLinkTutorial.setText(term.getT_linkTutorial());
 
-        }*/
+        }
         return view;
     }
 

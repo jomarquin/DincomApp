@@ -1,31 +1,33 @@
 package com.martinez.johan.dincomapp.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.TextView;
 
-import com.martinez.johan.dincomapp.Entities.Drink;
+import com.martinez.johan.dincomapp.Entities.Tutorial;
+import com.martinez.johan.dincomapp.R;
 
 import java.util.ArrayList;
 
+public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.DrinksViewHolder> implements  View.OnClickListener {
 
-import com.martinez.johan.dincomapp.R;
-
-public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinksViewHolder> implements  View.OnClickListener {
-
-    ArrayList<Drink> listDrinks;
+    ArrayList<Tutorial> listTutorials;
     private View.OnClickListener listener;
+    private Context mContext;
 
-    public DrinkAdapter(ArrayList<Drink> listDrinks) {
-        this.listDrinks = listDrinks;
+    public TutorialAdapter(ArrayList<Tutorial> listTutorials) {
+        this.listTutorials = listTutorials;
     }
 
     @Override
     public DrinksViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from (parent.getContext()).inflate(R.layout.item_list_drinks, null, false);
+        View view = LayoutInflater.from (parent.getContext()).inflate(R.layout.item_list_tutorials, null, false);
         RecyclerView.LayoutParams layParams = new RecyclerView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         view.setLayoutParams(layParams);
@@ -35,19 +37,18 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinksViewHo
     }
 
 
-
     @Override
     public void onBindViewHolder(DrinksViewHolder holder, int position) {
 
-        holder.txtNombre.setText(listDrinks.get(position).getdName());
-        holder.txtPrecio.setText(listDrinks.get(position).getdPrice());//aca tenia el error del recyclerview
-        holder.foto.setImageResource(listDrinks.get(position).getdImage());
+        holder.txtNombre.setText(listTutorials.get(position).getdName());
+        Log.i("Tutorial", "link: "+listTutorials.get(position).getLinkVideo());
+        //holder.video.loadData(listTutorials.get(position).getLinkVideo(),"text/html", "utf-8");
 
     }
 
     @Override
     public int getItemCount() {
-        return listDrinks.size();
+        return listTutorials.size();
     }
 
     public void setOnClickListener(View.OnClickListener listener){
@@ -63,14 +64,14 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinksViewHo
 
     public class DrinksViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtNombre, txtPrecio;
-        ImageView foto;
+        TextView txtNombre;
+        WebView video;
 
         public DrinksViewHolder(View itemView) {
             super(itemView);
-            txtNombre=itemView.findViewById(R.id.id_name_listDrink);
-            txtPrecio=itemView.findViewById(R.id.id_price_listDrink);
-            foto=itemView.findViewById(R.id.id_photo_listDrink);
+            txtNombre=itemView.findViewById(R.id.id_name_listTutorial);
+            //txtVideo=itemView.findViewById(R.id
+            video=itemView.findViewById(R.id.id_videoTutorial);
         }
     }
 }

@@ -2,33 +2,37 @@ package com.martinez.johan.dincomapp;
 
 import android.app.Activity;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import com.martinez.johan.dincomapp.Adapters.DrinkAdapter;
-import com.martinez.johan.dincomapp.Entities.Drink;
-import com.martinez.johan.dincomapp.Utilities.Utilities;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.martinez.johan.dincomapp.Adapters.TutorialAdapter;
+import com.martinez.johan.dincomapp.Entities.Tutorial;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ListdrinksFragment.OnFragmentInteractionListener} interface
+ * {@link ListtutorialsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ListdrinksFragment#newInstance} factory method to
+ * Use the {@link ListtutorialsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ListdrinksFragment extends Fragment {
+public class ListtutorialsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -40,13 +44,16 @@ public class ListdrinksFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    RecyclerView recyclerListDrinks;
-    ArrayList<Drink> listDrink;
+    RecyclerView recyclerListTutorials;
+    ArrayList<Tutorial> listTutorial;
     ConexionSQLiteHelper conn;
     Activity activity;
     IComunicaFragments interfaceComunicaFragments;
 
-    public ListdrinksFragment() {
+    DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference databaseRef = ref.child("Tutoriales");
+
+    public ListtutorialsFragment() {
         // Required empty public constructor
     }
 
@@ -56,11 +63,11 @@ public class ListdrinksFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ListdrinksFragment.
+     * @return A new instance of fragment ListtutorialsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ListdrinksFragment newInstance(String param1, String param2) {
-        ListdrinksFragment fragment = new ListdrinksFragment();
+    public static ListtutorialsFragment newInstance(String param1, String param2) {
+        ListtutorialsFragment fragment = new ListtutorialsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -80,78 +87,66 @@ public class ListdrinksFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_listdrinks, container, false);
+        View view=inflater.inflate(R.layout.fragment_listtutorials, container, false);
 
-        conn = new ConexionSQLiteHelper(getContext(), "bd_maxipollo", null, 1);
-        listDrink=new ArrayList<>();
-        recyclerListDrinks=view.findViewById(R.id.id_recycler_drinks);
-        recyclerListDrinks.setLayoutManager(new LinearLayoutManager(getContext()));
+        listTutorial =new ArrayList<>();
+        recyclerListTutorials=view.findViewById(R.id.id_recycler_tutorials);
+        recyclerListTutorials.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        //fillDrinksList();
-        consultListDrinks();
+        consultListTutorials();
 
-        DrinkAdapter adapter =  new DrinkAdapter(listDrink);
-        recyclerListDrinks.setAdapter(adapter);
+        /**TutorialAdapter adapter =  new TutorialAdapter(listTutorial);
+        recyclerListTutorials.setAdapter(adapter);
 
         adapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //evento para llamar al Fragment
-                interfaceComunicaFragments.sendDrink
-                        (listDrink.get(recyclerListDrinks.getChildAdapterPosition(view)));
+                interfaceComunicaFragments.sendTutorial
+                        (listTutorial.get(recyclerListTutorials.getChildAdapterPosition(view)));
             }
-        });
+        });**/
 
         return view;
     }
 
-    private void consultListDrinks() {
-        SQLiteDatabase db=conn.getReadableDatabase();
+    private void consultListTutorials() {
+        databaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Tutorial tutorial;
+                //clearing the previous artist list
+                listTutorial.clear();
 
-        Drink drink;
+                //iterating through all the nodes
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
-        Cursor cursor=db.rawQuery("SELECT * FROM "+ Utilities.TABLE_DRINKS, null);
+                    tutorial=new Tutorial();
 
-        String name;
-        while (cursor.moveToNext()){
-            drink=new Drink();
-            drink.setdName(cursor.getString(0));
-            drink.setdPrice("Precio: $"+cursor.getString(1));
-            //drink.setdImage(R.drawable.bebidas1);
+                    tutorial.setdName(postSnapshot.child("nombre").getValue().toString());
+                    tutorial.setLinkVideo(postSnapshot.child("video").getValue().toString());
 
-            name=cursor.getString(0);
-            if (name.equals("Jugo Natural")){
-                drink.setdImage(R.drawable.jugo_natural);
-            }else if(name.equals("Limonada de Coco")){
-                drink.setdImage(R.drawable.limonada_coco);
-            }else if(name.equals("Granizado")){
-                drink.setdImage(R.drawable.granizado);
-            }else if(name.equals("Michelada")){
-                drink.setdImage(R.drawable.michelada);
-            }else if(name.equals("Gaseosa")){
-                drink.setdImage(R.drawable.gaseosa);
-            }else if(name.equals("Cocteles")){
-                drink.setdImage(R.drawable.bebidas1);
-            }else if(name.equals("Cerveza")){
-                drink.setdImage(R.drawable.cerveza);
-            }else {
-                drink.setdImage(R.drawable.bebidas1);
+                    listTutorial.add(tutorial);
+                }
+                TutorialAdapter adapter =  new TutorialAdapter(listTutorial);
+                recyclerListTutorials.setAdapter(adapter);
+
+                adapter.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //evento para llamar DetailtermFragment
+                        interfaceComunicaFragments.sendTutorial
+                                (listTutorial.get(recyclerListTutorials.getChildAdapterPosition(view)));
+                    }
+                });
             }
 
-            listDrink.add(drink);
-
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getContext(), "No se pudo obtener información ", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-
-    /**private void fillDrinksList() {
-        listDrink.add(new Drink("Pollo Asado",  "Precio: 15000",  R.mipmap.pollo_asado));
-        listDrink.add(new Drink("Pollo Asado",  "Precio: 15000",  R.mipmap.pollo_asado));
-        listDrink.add(new Drink("Pollo Asado",  "Precio: 15000",  R.mipmap.pollo_asado));
-        listDrink.add(new Drink("Pollo Asado",  "Precio: 15000",  R.mipmap.pollo_asado));
-        listDrink.add(new Drink("Pollo Asado",  "Precio: 15000",  R.mipmap.pollo_asado));
-        listDrink.add(new Drink("Pollo Asado",  "Precio: 15000",  R.mipmap.pollo_asado));
-        listDrink.add(new Drink("Pollo Asado",  "Precio: 15000",  R.mipmap.pollo_asado));
-    }*/
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

@@ -1,6 +1,7 @@
 package com.martinez.johan.dincomapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,7 +30,6 @@ public class MenuFragment extends Fragment {
     private String mParam2;
 
     View view;
-    Button btnPlates, btnDrinks;
 
     private OnFragmentInteractionListener mListener;
 
@@ -69,29 +69,10 @@ public class MenuFragment extends Fragment {
                              Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_menu, container, false);
 
-        /**btnPlates=view.findViewById(R.id.id_comidas);
-
-
-        btnPlates.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment miFrag = new ComidasFragment();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFrag).addToBackStack(null).commit();
-
-            }
-        });
-
-        btnDrinks=view.findViewById(R.id.id_bebidas);
-        btnDrinks.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment miFrag = new BebidasFragment();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFrag).addToBackStack(null).commit();
-            }
-        }); */
 
         return view;
     }
+
 
 
 

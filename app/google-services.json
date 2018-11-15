@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "751864441806",
+    "firebase_url": "https://dincomapp.firebaseio.com",
+    "project_id": "dincomapp",
+    "storage_bucket": "dincomapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:751864441806:android:f67f18007607a3df",
+        "android_client_info": {
+          "package_name": "com.martinez.johan.dincomapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "751864441806-tubmmjuupa0cjig2cqv2sd2oepgpsqri.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPPGjrk4KjuUFksW0wvAvhfWCynd2QX8s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -27,21 +27,9 @@ public class Utilities {
 
     /**Información de la tabla terminos*/
 
-    public static final String CREATE_TERM_1 = "INSERT INTO terminos VALUES(004,'3D','Ensayando_ingreso_de_datos','Sin turorial')";
+    public static String WORD_SEARCH ="";
 
-    public static final String CREATE_INFO_TABLE = "INSERT " +
-            "INTO terminos VALUES(001, '@ - arroba', '(en inglés significa at [en]). En las direcciones de e-mail, es el símbolo que separa el nombre del usuario del nombre de su proveedor de correo electrónico. Por ejemplo: pepe@hotmail.com', 'No tiene Tutorial')" +
-            "INSERT INTO terminos VALUES(002,'3D','Ensayando_ingreso_de_datos','Sin turorial')" +
-            "INSERT INTO terminos VALUES(003,'Acceso Directo','Ensayando_ingreso_de_datos','Sin turorial')" +
-            "INSERT INTO terminos VALUES(004,'Acrobat','Ensayando_ingreso_de_datos','Sin turorial')" +
-            "INSERT INTO terminos VALUES(005,'ADSL','Ensayando_ingreso_de_datos','Sin turorial')" +
-            "INSERT INTO terminos VALUES(006,'AGP','Ensayando_ingreso_de_datos','Sin turorial')" +
-            "INSERT INTO terminos VALUES(007,'AI','Ensayando_ingreso_de_datos','Sin turorial')" +
-            "INSERT INTO terminos VALUES(008,'Algoritmo','Ensayando_ingreso_de_datos','Sin turorial')" +
-            "INSERT INTO terminos VALUES(009,'Amazon','Ensayando_ingreso_de_datos','Sin turorial')" +
-            "INSERT INTO terminos VALUES(010,'AMIBIOS','Ensayando_ingreso_de_datos','Sin turorial')" +
-            "INSERT INTO terminos VALUES(011,'Ancho de Banda','Ensayando_ingreso_de_datos','Sin turorial')" +
-            "INSERT INTO terminos VALUES(012,'AOL','Ensayando_ingreso_de_datos','Sin turorial')";
+
 
 
 

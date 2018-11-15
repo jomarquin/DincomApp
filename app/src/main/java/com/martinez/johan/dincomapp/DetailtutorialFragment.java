@@ -7,21 +7,23 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.martinez.johan.dincomapp.Entities.Drink;
+import com.martinez.johan.dincomapp.Entities.Tutorial;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link DetaildrinkFragment.OnFragmentInteractionListener} interface
+ * {@link DetailtutorialFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link DetaildrinkFragment#newInstance} factory method to
+ * Use the {@link DetailtutorialFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DetaildrinkFragment extends Fragment {
+public class DetailtutorialFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,10 +35,10 @@ public class DetaildrinkFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    TextView txtName, txtPrice;
-    ImageView imgDetail;
+    TextView txtName, txtVideo;
+    WebView video;
 
-    public DetaildrinkFragment() {
+    public DetailtutorialFragment() {
         // Required empty public constructor
     }
 
@@ -46,11 +48,11 @@ public class DetaildrinkFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment DetaildrinkFragment.
+     * @return A new instance of fragment DetailtutorialFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DetaildrinkFragment newInstance(String param1, String param2) {
-        DetaildrinkFragment fragment = new DetaildrinkFragment();
+    public static DetailtutorialFragment newInstance(String param1, String param2) {
+        DetailtutorialFragment fragment = new DetailtutorialFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -70,20 +72,23 @@ public class DetaildrinkFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_detaildrink, container, false);
+        View view =  inflater.inflate(R.layout.fragment_detailtutorial, container, false);
 
-        txtName=view.findViewById(R.id.id_detail_nameDrink);
-        txtPrice=view.findViewById(R.id.id_detail_priceDrink);
-        imgDetail=view.findViewById(R.id.id_image_detail_drink);
+        txtName=view.findViewById(R.id.id_detail_tutorial);
+        txtVideo=view.findViewById(R.id.id_detail_linkVideo);
+        video=view.findViewById(R.id.id_videoTutorial);
+        video.getSettings().setJavaScriptEnabled(true);
+        video.setWebChromeClient(new WebChromeClient());
 
         Bundle objectPlate=getArguments();
-        Drink drink;
+        Tutorial tutorial;
         if (objectPlate != null){
-            drink= (Drink) objectPlate.getSerializable("objeto");
+            tutorial = (Tutorial) objectPlate.getSerializable("objeto");
 
-            txtName.setText(drink.getdName());
-            txtPrice.setText(drink.getdPrice());
-            imgDetail.setImageResource(drink.getdImage());
+            txtName.setText(tutorial.getdName());
+            txtVideo.setText(tutorial.getLinkVideo());
+            //video.loadData(tutorial.getLinkVideo(),"text/html", "utf-8");
+            video.loadUrl(tutorial.getLinkVideo());
 
         }
 

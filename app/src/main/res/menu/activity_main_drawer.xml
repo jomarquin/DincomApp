@@ -27,7 +27,7 @@
         <item
             android:id="@+id/nav_menu"
             android:icon="@mipmap/ic_menu"
-            android:title="@string/menu" />
+            android:title="@string/init" />
         <item
             android:id="@+id/nav_closeSession"
             android:icon="@mipmap/ic_menu_closesession"

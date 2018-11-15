@@ -2,14 +2,13 @@ package com.martinez.johan.dincomapp;
 
 import android.app.Activity;
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.martinez.johan.dincomapp.Adapters.TermAdapter;
 import com.martinez.johan.dincomapp.Entities.Term;
+import com.martinez.johan.dincomapp.Utilities.Utilities;
 
 import java.util.ArrayList;
 
@@ -29,12 +29,12 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ListtermsFragment.OnFragmentInteractionListener} interface
+ * {@link SearchingFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ListtermsFragment#newInstance} factory method to
+ * Use the {@link SearchingFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ListtermsFragment extends Fragment {
+public class SearchingFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -54,7 +54,7 @@ public class ListtermsFragment extends Fragment {
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     DatabaseReference databaseRef = ref.child("Terminos");
 
-    public ListtermsFragment() {
+    public SearchingFragment() {
         // Required empty public constructor
     }
 
@@ -64,11 +64,11 @@ public class ListtermsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ListtermsFragment.
+     * @return A new instance of fragment SearchingFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ListtermsFragment newInstance(String param1, String param2) {
-        ListtermsFragment fragment = new ListtermsFragment();
+    public static SearchingFragment newInstance(String param1, String param2) {
+        SearchingFragment fragment = new SearchingFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -88,22 +88,14 @@ public class ListtermsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_listterms, container, false);
+
+        View view=inflater.inflate(R.layout.fragment_searching, container, false);
 
         listTerm =new ArrayList<>();
-        recyclerListTerms =view.findViewById(R.id.id_recycler_terms);
+        recyclerListTerms =view.findViewById(R.id.id_recycler_searchingTerms);
         recyclerListTerms.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        //Se verifica si hay conexión a internet
-        ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-
-        if (networkInfo != null && networkInfo.isConnected()) {
-            consultListTerms();
-        } else {
-            Toast.makeText(getContext(), "No hay conexión a internet!!", Toast.LENGTH_SHORT).show();
-        }
-        //consultListTerms();
+        consultListTerms();
 
         return view;
     }
@@ -116,6 +108,7 @@ public class ListtermsFragment extends Fragment {
                 Term term;
                 //clearing the previous artist list
                 listTerm.clear();
+
                 //iterating through all the nodes
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
@@ -124,7 +117,13 @@ public class ListtermsFragment extends Fragment {
                     term.setT_Name(postSnapshot.child("nombre").getValue().toString());
                     term.setT_Definition(postSnapshot.child("significado").getValue().toString());
 
-                    listTerm.add(term);
+                    String wordSearch=Utilities.WORD_SEARCH.toLowerCase();
+                    String wordTerm=term.getT_Name().toLowerCase();
+                    boolean findText = wordTerm.contains(wordSearch);
+                    if (findText){
+                        listTerm.add(term);
+                    }
+                    //listTerm.add(term);
                 }
                 TermAdapter adapter =  new TermAdapter(listTerm);
                 recyclerListTerms.setAdapter(adapter);
@@ -138,13 +137,13 @@ public class ListtermsFragment extends Fragment {
                     }
                 });
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(getContext(), "No se pudo obtener información ", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -156,7 +155,6 @@ public class ListtermsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
         if (context instanceof Activity){ //Establece comunicacion entre la lista y el detalle
             this.activity = (Activity) context;
             interfaceComunicaFragments = (IComunicaFragments) this.activity;

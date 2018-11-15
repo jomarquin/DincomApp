@@ -1,9 +1,7 @@
 package com.martinez.johan.dincomapp;
 
 
-import android.content.ContentValues;
-import android.database.DatabaseUtils;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -15,29 +13,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
 
-import com.martinez.johan.dincomapp.Entities.Drink;
+import com.martinez.johan.dincomapp.Entities.Tutorial;
 import com.martinez.johan.dincomapp.Entities.Term;
-import com.martinez.johan.dincomapp.Utilities.Utilities;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        AboutFragment.OnFragmentInteractionListener, ProfileFragment.OnFragmentInteractionListener,
+        AboutFragment.OnFragmentInteractionListener, SearchWordFragment.OnFragmentInteractionListener,
         ComidasFragment.OnFragmentInteractionListener, ListtermsFragment.OnFragmentInteractionListener,
-        ListdrinksFragment.OnFragmentInteractionListener, PreferencesFragment.OnFragmentInteractionListener,
+        ListtutorialsFragment.OnFragmentInteractionListener, PreferencesFragment.OnFragmentInteractionListener,
         MenuFragment.OnFragmentInteractionListener, BebidasFragment.OnFragmentInteractionListener,
-        IComunicaFragments, DetaildrinkFragment.OnFragmentInteractionListener,
+        IComunicaFragments, DetailtutorialFragment.OnFragmentInteractionListener, SearchingFragment.OnFragmentInteractionListener,
         EditprofileFragment.OnFragmentInteractionListener, DetailtermFragment.OnFragmentInteractionListener{
 
     Fragment menuFragment;
     ListtermsFragment listtermsFragment;
     DetailtermFragment detailtermFragment;
-    DetaildrinkFragment detaildrinkFragment;
+    DetailtutorialFragment detailTutorialFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +38,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        init();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         menuFragment = new MenuFragment();
         getSupportFragmentManager().beginTransaction()
@@ -62,65 +54,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
-    }
-
-    /**
-     * Este método se encarga de llenar la tabla 'terminos' con la información de los términos y palabras
-     */
-    private void init(){
-        if (cantRows()==0){
-            String[] text= readFileTerms();
-            ConexionSQLiteHelper conexionSQLiteHelper = new ConexionSQLiteHelper(this, "bd_diccionario", null, 1 );
-            SQLiteDatabase db = conexionSQLiteHelper.getWritableDatabase();
-            db.beginTransaction();
-
-            for (int i=0;i<text.length;i++){
-                String[] line = text[i].split(";");
-                ContentValues values = new ContentValues();
-                values.put(Utilities.FIELD_ID, line[0]);
-                values.put(Utilities.FIELD_T_NAME, line[1]);
-                values.put(Utilities.FIELD_T_DEFINITION, line[2]);
-                values.put(Utilities.FIELD_T_LINKTUTORIAL, line[3]);
-                db.insert(Utilities.TABLE_TERMS, null, values);
-            }
-            Toast.makeText(getApplicationContext(), "Registros insertados: "+text.length, Toast.LENGTH_LONG).show();
-            db.setTransactionSuccessful();
-            db.endTransaction();
-        }else{
-            Toast.makeText(getApplicationContext(), "Base de datos actualizada!!", Toast.LENGTH_LONG).show();
-        }
-    }//Fin Init
-
-    /**
-     * Este método se encarga de contar cuantos registros hay en la tabla 'terminos' para determinar si se debe cargar
-     * la información de términos y palabras
-     * @return retorna un long con la cantidad de registros que tiene la tabla
-     */
-    private long cantRows(){
-        ConexionSQLiteHelper conexionSQLiteHelper = new ConexionSQLiteHelper(this, "bd_diccionario", null, 1 );
-        SQLiteDatabase db = conexionSQLiteHelper.getReadableDatabase();
-        long cn = DatabaseUtils.queryNumEntries(db,Utilities.TABLE_TERMS);
-        db.close();
-        return cn;
-    }
-
-    /**
-     * Este método lee el archivo donde esta la información a cargar en la tabla 'terminos'
-     * @return Retorna un arreglo string con la información de los términos o palabras
-     */
-    private String[] readFileTerms(){
-        InputStream inputStream = getResources().openRawResource(R.raw.terms);
-        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
-        try {
-            int i = inputStream.read();
-            while (i != -1){
-                byteArrayOutputStream.write(i);
-                i = inputStream.read();
-            }
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        return byteArrayOutputStream.toString().split("\n");
     }
 
 
@@ -149,8 +82,10 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_search) {
+            Fragment miFragment = new SearchWordFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment)
+                    .addToBackStack(null).commit();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -169,11 +104,13 @@ public class MainActivity extends AppCompatActivity
             miFragment = new ListtermsFragment();
             fragmentSelected = true;
         } else if (id == R.id.nav_list_tutorials) {
-            miFragment = new ListdrinksFragment();
+            miFragment = new ListtutorialsFragment();
             fragmentSelected = true;
         } else if (id == R.id.nav_search) {
-            miFragment = new ProfileFragment();
+            miFragment = new SearchWordFragment();
             fragmentSelected = true;
+            /**Intent intent = new Intent(MainActivity.this, SearchTermActivity.class);
+            startActivity(intent);**/
         } else if (id == R.id.nav_configurations) {
             miFragment = new PreferencesFragment();
             fragmentSelected = true;
@@ -186,12 +123,10 @@ public class MainActivity extends AppCompatActivity
             miFragment=new MenuFragment();
             fragmentSelected=true;
         }
-
             if (fragmentSelected==true){
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment)
                         .addToBackStack(null).commit();
             }
-
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -215,13 +150,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void sendDrink(Drink drink) {
-        detaildrinkFragment = new DetaildrinkFragment();
+    public void sendTutorial(Tutorial tutorial) {
+        detailTutorialFragment = new DetailtutorialFragment();
         Bundle bundleSend = new Bundle();
-        bundleSend.putSerializable("objeto", drink);
-        detaildrinkFragment.setArguments(bundleSend);
+        bundleSend.putSerializable("objeto", tutorial);
+        detailTutorialFragment.setArguments(bundleSend);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_main, detaildrinkFragment).addToBackStack(null).commit();
+                .replace(R.id.content_main, detailTutorialFragment).addToBackStack(null).commit();
     }
 }

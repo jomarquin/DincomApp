@@ -3,7 +3,7 @@ package com.martinez.johan.dincomapp.Entities;
 import java.io.Serializable;
 
 public class Term implements Serializable {
-    private Integer id_term;
+    //private Integer id_term;
     private String t_Name;
     private String t_description;
     private String t_Definition;
@@ -12,17 +12,14 @@ public class Term implements Serializable {
     public Term() {
     }
 
-    public Term(Integer id_term, String t_Name, String t_description, String t_Definition, String t_linkTutorial) {
-        this.id_term = id_term;
+    public Term(String t_Name, String t_description, String t_Definition, String t_linkTutorial) {
+        //this.id_term = id_term;
         this.t_Name = t_Name;
         this.t_description = t_description;
         this.t_Definition = t_Definition;
         this.t_linkTutorial = t_linkTutorial;
     }
 
-    public Integer getId_term() {
-        return id_term;
-    }
 
     public String getT_description() {
         return t_description;
@@ -32,9 +29,6 @@ public class Term implements Serializable {
         this.t_description = t_description;
     }
 
-    public void setId_term(Integer id_term) {
-        this.id_term = id_term;
-    }
 
     public String getT_Name() {
         return t_Name;
