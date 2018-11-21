@@ -4,69 +4,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailtermFragment">
+    tools:context=".Terms.DetailtermFragment">
 
-    <TextView
-        android:id="@+id/id_head_def"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:text="@string/definition"
-        android:textAlignment="center"
-        android:textColor="#ffffff"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/id_term"
-        android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:layout_marginTop="40dp"
-        android:text="@string/term"
-        android:textColor="@color/colorPrimary"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/id_head_def"
-        tools:layout_editor_absoluteX="0dp" />
-
-
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="386dp"
-        android:layout_marginTop="8dp"
-        android:keepScreenOn="true"
-        android:scrollbarStyle="insideInset"
-        android:scrollbars="vertical"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_term"
-        tools:layout_editor_absoluteX="0dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/id_head_def"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="@string/definition"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/id_definition"
+            android:id="@+id/id_term"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="48dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:hint="@string/definition"
-            android:isScrollContainer="true"
-            android:scrollbars="vertical"
+            android:layout_height="38dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/term"
             android:textAlignment="center"
-            android:textSize="20sp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/id_head_def"
+            tools:layout_editor_absoluteX="0dp" />
+
+
+        <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="match_parent"
+            android:layout_height="391dp"
+            android:layout_marginTop="8dp"
+            android:keepScreenOn="true"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/id_term"
-            app:layout_constraintVertical_bias="0.0" />
-    </ScrollView>
+            app:layout_constraintVertical_bias="0.714"
+            tools:layout_editor_absoluteX="0dp">
+
+            <TextView
+                android:id="@+id/id_definition"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:hint="@string/definition"
+                android:isScrollContainer="true"
+                android:scrollbars="vertical"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/id_term"
+                app:layout_constraintVertical_bias="0.0" />
+        </ScrollView>
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

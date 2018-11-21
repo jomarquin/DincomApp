@@ -36,11 +36,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermsViewHolde
 
     @Override
     public void onBindViewHolder(TermsViewHolder holder, int position) {
-        //holder.txtId.setText(listTerms.get(position).getId_term().toString());
         holder.txtName.setText(listTerms.get(position).getT_Name());
-        //holder.txtDescription.setText(listTerms.get(position).getT_description());
-        //holder.txtDefinition.setText(listTerms.get(position).getT_Definition());
-        //holder.txtLinkTutorial.setText(listTerms.get(position).getT_linkTutorial());
 
     }
 
@@ -62,15 +58,11 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermsViewHolde
 
     public class TermsViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtId, txtName, txtDescription, txtDefinition, txtLinkTutorial;
+        TextView txtName;
 
         public TermsViewHolder(View itemView) {
             super(itemView);
-            //txtId=itemView.findViewById(R.id.id_id_listTerms);
             txtName=itemView.findViewById(R.id.id_name_listTerms);
-            //txtDescription=itemView.findViewById(R.id.id_description_listTerms);
-            //txtDefinition=itemView.findViewById(R.id.id_definition_listTerms);
-            //txtLinkTutorial=itemView.findViewById(R.id.id_link_listTerms);
         }
     }
 }

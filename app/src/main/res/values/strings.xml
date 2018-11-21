@@ -97,5 +97,8 @@
     <string name="video">Video</string>
     <string name="search_terms">Buscar términos</string>
     <string name="search_tutorial">Buscar tutoriales</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="video_tutorial">Video Tutorial</string>
+    <string name="come_back">Regresar</string>
 
 </resources>

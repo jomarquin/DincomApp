@@ -6,11 +6,6 @@
         android:icon="@android:drawable/ic_menu_search"
         android:orderInCategory="1"
         android:title="@string/search_terms"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_searchTutorial"
-        android:icon="@android:drawable/ic_menu_search"
-        android:orderInCategory="1"
-        android:title="@string/search_tutorial"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
+
 </menu>

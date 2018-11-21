@@ -3,7 +3,6 @@ package com.martinez.johan.dincomapp.Entities;
 import java.io.Serializable;
 
 public class Term implements Serializable {
-    //private Integer id_term;
     private String t_Name;
     private String t_description;
     private String t_Definition;
@@ -13,7 +12,6 @@ public class Term implements Serializable {
     }
 
     public Term(String t_Name, String t_description, String t_Definition, String t_linkTutorial) {
-        //this.id_term = id_term;
         this.t_Name = t_Name;
         this.t_description = t_description;
         this.t_Definition = t_Definition;

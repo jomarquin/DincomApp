@@ -1,13 +1,10 @@
 package com.martinez.johan.dincomapp.Adapters;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.martinez.johan.dincomapp.Entities.Tutorial;
@@ -19,7 +16,6 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.Drinks
 
     ArrayList<Tutorial> listTutorials;
     private View.OnClickListener listener;
-    private Context mContext;
 
     public TutorialAdapter(ArrayList<Tutorial> listTutorials) {
         this.listTutorials = listTutorials;
@@ -42,8 +38,6 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.Drinks
 
         holder.txtNombre.setText(listTutorials.get(position).getdName());
         Log.i("Tutorial", "link: "+listTutorials.get(position).getLinkVideo());
-        //holder.video.loadData(listTutorials.get(position).getLinkVideo(),"text/html", "utf-8");
-
     }
 
     @Override
@@ -65,13 +59,10 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.Drinks
     public class DrinksViewHolder extends RecyclerView.ViewHolder {
 
         TextView txtNombre;
-        WebView video;
 
         public DrinksViewHolder(View itemView) {
             super(itemView);
             txtNombre=itemView.findViewById(R.id.id_name_listTutorial);
-            //txtVideo=itemView.findViewById(R.id
-            video=itemView.findViewById(R.id.id_videoTutorial);
         }
     }
 }
